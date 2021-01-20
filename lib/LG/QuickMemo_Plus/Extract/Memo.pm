@@ -18,11 +18,12 @@ LG::QuickMemo_Plus::Extract::Memo - It's new $module
 
 =head1 SYNOPSIS
 
-    use LG::QuickMemo_Plus::Extract::Memo;
+    use LG::QuickMemo_Plus::Extract::Memo qw(lqm_to_str);
+    my $memo_text = lqm_to_str('QuickMemo+_191208_220400.lqm');
 
 =head1 DESCRIPTION
 
-LG::QuickMemo_Plus::Extract::Memo is ...
+LG::QuickMemo_Plus::Extract::Memo is a module that will extract the text contents from archived QuickMemo+ memos.
 
 =head1 LICENSE
 

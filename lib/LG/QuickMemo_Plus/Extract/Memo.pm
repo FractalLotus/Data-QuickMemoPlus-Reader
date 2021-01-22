@@ -19,16 +19,18 @@ our $suppress_header = 0;
 
 sub lqm_to_str {
     ## pass an lqm file exported from QuickMemo+
-    my ( $input ) = @_;
-    if (not -f $input){
-        warn "$input is not a file";
+    my ( $lqm_file ) = @_;
+    if (not -f $lqm_file){
+        warn "$lqm_file is not a file";
         return '';
     }
     my $note_created_time = "";
-    if ( $input =~ /(QuickMemo\+_(\d{6}_\d{6})(\(\d+\))?)/i) {
+    if ( $lqm_file =~ /(QuickMemo\+_(\d{6}_\d{6})(\(\d+\))?)/i) {
         $note_created_time = $2;
     }
-    my ($extracted_text, $note_category) = extract_text_from_json(extract_json_from_lqm( $input ));
+    my $ref_json_str = extract_json_from_lqm( $lqm_file );
+    return '' if not $ref_json_str;
+    my ($extracted_text, $note_category) = extract_text_from_json($ref_json_str);
     my $header = "Created date: $note_created_time\n";
     $header .= "Category:   $note_category\n";
     $header .= "-"x79 . "\n";
@@ -47,7 +49,7 @@ sub extract_json_from_lqm {
     # Read a Zip file
     my $lqm_zip = Archive::Zip->new();
     unless ( $lqm_zip->read( $lqm_file ) == AZ_OK ) {
-        warn "Read error in $lqm_file";
+        warn "Error reading $lqm_file";
         ####### to do: add the zip error to the warning?
         return "";
     }

@@ -37,7 +37,7 @@ END_HEADER
 }
 
 sub jlqm {
-    chomp(my $jlqm_contents <<'END_JLQM');
+    chomp(my $jlqm_contents = <<'END_JLQM');
 {
   "Category": {
     "AccountName": "phone",

@@ -56,6 +56,10 @@ sub extract_json_from_lqm {
     my $jlqm_filename = "memoinfo.jlqm";
     my $member = $lqm_zip->memberNamed( $jlqm_filename );
     ############### to do: add warning here if memoinfo.jlqm is missing.
+    if( not $member ){
+        warn "File not found: $jlqm_filename in archive $lqm_file";
+        return "";
+    }
     my ( $string, $status ) = $member->contents();
     if(not $status == AZ_OK){
         warn "Error extracting $jlqm_filename from $lqm_file : Status = $status";

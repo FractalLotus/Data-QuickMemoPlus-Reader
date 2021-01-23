@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use 5.010;
  
-use Test::More tests => 2;
+use Test::More tests => 4;
 use Test::Warn;
  
 use LG::QuickMemo_Plus::Extract::Memo qw( lqm_to_str );
@@ -12,7 +12,22 @@ warning_is    {lqm_to_str($lqm_file)} "$lqm_file is not a file", "warning for mi
 $lqm_file = 't/data/good_file.lqm';
 warning_is    {lqm_to_str($lqm_file)} [], "no warnings for good file.";
 
-#### add warning test here with a regex to find this one among the archive::zip warnings.
-#### test for non archive zip file.
 $lqm_file = 't/data/junk.lqm';
-warning_like  {foo(-dri => "/")} qr/unknown param/i, "an unknown parameter test";
+warnings_like {lqm_to_str($lqm_file)}
+              [ {carped => qr/format error:/i},
+                qr/Error reading $lqm_file/,
+              ],
+              "warnings for non-zip, junk file.";
+$lqm_file = 't/data/missing_jlqm.lqm';
+warnings_like {lqm_to_str($lqm_file)}
+              [ qr/File not found: memoinfo.jlqm in archive $lqm_file/,
+              ],
+              "warnings for archive missing file - memoinfo.jlqm.";
+$lqm_file = 't/data/garbled.lqm';
+warnings_like {lqm_to_str($lqm_file)}
+              [ {carped => qr/format error:/i},
+                qr/Error extracting memoinfo.jlqm/,
+              ],
+              "warnings for garbled file - memoinfo.jlqm.";
+
+

@@ -12,11 +12,6 @@ use Exporter qw(import);
 our @EXPORT_OK = qw( lqm_to_str );
 our $suppress_header = 0;
 
-######################################
-# QuickMemo+ lqm files are in Zip format.
-# This program unzips them, parses the json file inside, then extracts
-#   the category and memo text from the Json file.
-
 sub lqm_to_str {
     ## pass an lqm file exported from QuickMemo+
     my ( $lqm_file ) = @_;
@@ -73,10 +68,13 @@ sub extract_json_from_lqm {
 #         return the text in 'DescRaw'
 sub extract_text_from_json {
     my $ref_json_string = shift;
-    return if not $ref_json_string;
+    
+    ############# To do: eval this and trap errors.
     my $href_memo  = decode_json $$ref_json_string;
-    ################## to do: add warning here if decode fails.
-    return if not $href_memo;
+    if (not $href_memo){
+        warn "Error decoding text";
+        return '','';
+    }
     my $text = "";
     foreach( @{$href_memo->{MemoObjectList}} ) {
         $text .= $_->{DescRaw};
@@ -87,9 +85,6 @@ sub extract_text_from_json {
     $category =~ s/[^\w-]/_/;
     return $text, $category;
 }
-
-
-
 1;
 __END__
 
@@ -97,7 +92,7 @@ __END__
 
 =head1 NAME
 
-LG::QuickMemo_Plus::Extract::Memo - It's new $module
+LG::QuickMemo_Plus::Extract::Memo
 
 =head1 SYNOPSIS
 
@@ -106,7 +101,12 @@ LG::QuickMemo_Plus::Extract::Memo - It's new $module
 
 =head1 DESCRIPTION
 
-LG::QuickMemo_Plus::Extract::Memo is a module that will extract the text contents from archived QuickMemo+ memos.
+LG::QuickMemo_Plus::Extract::Memo is a module that will extract the 
+text contents from archived QuickMemo+ memos.
+
+QuickMemo+ lqm files are in Zip format. This program unzips them, 
+parses the json file inside, then extracts the category and memo text 
+from the Json file.
 
 =head1 LICENSE
 

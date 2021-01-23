@@ -1,8 +1,6 @@
 use strict;
-use warnings;
-use 5.010;
  
-use Test::More tests => 4;
+use Test::More tests => 5;
 use Test::Warn;
  
 use LG::QuickMemo_Plus::Extract::Memo qw( lqm_to_str );
@@ -25,8 +23,8 @@ warnings_like {lqm_to_str($lqm_file)}
               "warnings for archive missing file - memoinfo.jlqm.";
 $lqm_file = 't/data/garbled.lqm';
 warnings_like {lqm_to_str($lqm_file)}
-              [ {carped => qr/format error:/i},
-                qr/Error extracting memoinfo.jlqm/,
+              [ {carped => qr/error: inflate error data error/i},
+                qr/Error extracting memoinfo.jlqm from $lqm_file/,
               ],
               "warnings for garbled file - memoinfo.jlqm.";
 

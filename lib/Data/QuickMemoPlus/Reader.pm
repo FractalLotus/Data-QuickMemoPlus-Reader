@@ -2,6 +2,7 @@ package Data::QuickMemoPlus::Reader;
 use 5.008001;
 use strict;
 use warnings;
+use Carp;
 use JSON;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 
@@ -16,7 +17,7 @@ sub lqm_to_str {
     ## pass an lqm file exported from QuickMemo+
     my ( $lqm_file ) = @_;
     if (not -f $lqm_file){
-        warn "$lqm_file is not a file";
+        carp "$lqm_file is not a file";
         
         return '';
     }
@@ -43,7 +44,7 @@ sub extract_json_from_lqm {
     my $lqm_file = shift;
     my $lqm_zip = Archive::Zip->new();
     unless ( $lqm_zip->read( $lqm_file ) == AZ_OK ) {
-        warn "Error reading $lqm_file";
+        carp "Error reading $lqm_file";
         ####### to do: add the zip error to the warning?
         
         return "";
@@ -51,13 +52,13 @@ sub extract_json_from_lqm {
     my $jlqm_filename = "memoinfo.jlqm";
     my $member = $lqm_zip->memberNamed( $jlqm_filename );
     if( not $member ){
-        warn "File not found: $jlqm_filename in archive $lqm_file";
+        carp "File not found: $jlqm_filename in archive $lqm_file";
         
         return "";
     }
     my ( $string, $status ) = $member->contents();
     if(not $status == AZ_OK){
-        warn "Error extracting $jlqm_filename from $lqm_file : Status = $status";
+        carp "Error extracting $jlqm_filename from $lqm_file : Status = $status";
         
         return "";
     }
@@ -73,7 +74,7 @@ sub extract_text_from_json {
     ############# To do: eval this and trap errors.
     my $href_memo  = decode_json $json_string;
     if (not $href_memo){
-        warn "Error decoding text";
+        carp "Error decoding text";
         return '','';
     }
     my $text = "";

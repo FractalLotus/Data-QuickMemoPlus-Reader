@@ -1,4 +1,4 @@
-package LG::QuickMemo_Plus::Extract::Memo;
+package Data::QuickMemoPlus::Reader;
 use 5.008001;
 use strict;
 use warnings;
@@ -17,60 +17,61 @@ sub lqm_to_str {
     my ( $lqm_file ) = @_;
     if (not -f $lqm_file){
         warn "$lqm_file is not a file";
+        
         return '';
     }
     my $note_created_time = "";
     if ( $lqm_file =~ /(QuickMemo\+_(\d{6}_\d{6})(\(\d+\))?)/i) {
         $note_created_time = $2;
     }
-    my $ref_json_str = extract_json_from_lqm( $lqm_file );
-    return '' if not $ref_json_str;
-    my ($extracted_text, $note_category) = extract_text_from_json($ref_json_str);
+    my $json_str = extract_json_from_lqm( $lqm_file );
+    
+    return '' if not $json_str;
+    
+    my ($extracted_text, $note_category) = extract_text_from_json($json_str);
     my $header = "Created date: $note_created_time\n";
     $header .= "Category:   $note_category\n";
     $header .= "-"x79 . "\n";
     $header = '' if $suppress_header;
+    
     return $header . $extracted_text;
 }
 
 #####################################
-#         Unzip jlqm file and 
-#           return json file contents.
 #
 sub extract_json_from_lqm {
-    #   unzip
-    #   extract the memoinfo.jlqm file.
     my $lqm_file = shift;
-    # Read a Zip file
     my $lqm_zip = Archive::Zip->new();
     unless ( $lqm_zip->read( $lqm_file ) == AZ_OK ) {
         warn "Error reading $lqm_file";
         ####### to do: add the zip error to the warning?
+        
         return "";
     }
     my $jlqm_filename = "memoinfo.jlqm";
     my $member = $lqm_zip->memberNamed( $jlqm_filename );
-    ############### to do: add warning here if memoinfo.jlqm is missing.
     if( not $member ){
         warn "File not found: $jlqm_filename in archive $lqm_file";
+        
         return "";
     }
     my ( $string, $status ) = $member->contents();
     if(not $status == AZ_OK){
         warn "Error extracting $jlqm_filename from $lqm_file : Status = $status";
+        
         return "";
     }
-    return \$string;
+    
+    return $string;
 }
 
 ###############################################
-#       Decode json file contents and
-#         return the text in 'DescRaw'
+#
 sub extract_text_from_json {
-    my $ref_json_string = shift;
+    my $json_string = shift;
     
     ############# To do: eval this and trap errors.
-    my $href_memo  = decode_json $$ref_json_string;
+    my $href_memo  = decode_json $json_string;
     if (not $href_memo){
         warn "Error decoding text";
         return '','';
@@ -82,7 +83,7 @@ sub extract_text_from_json {
     }
     my $category = $href_memo->{Category}->{CategoryName};
     $category //= '';
-    $category =~ s/[^\w-]/_/;
+    $category =~ s/[^\w-]/_/g;
     return $text, $category;
 }
 1;
@@ -92,7 +93,7 @@ __END__
 
 =head1 NAME
 
-LG::QuickMemo_Plus::Extract::Memo
+LG::QuickMemo_Plus::Extract::Memo - Extract text from QuickMemo+ export files.
 
 =head1 SYNOPSIS
 

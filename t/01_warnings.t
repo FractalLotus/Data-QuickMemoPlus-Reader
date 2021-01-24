@@ -1,9 +1,10 @@
+use warnings;
 use strict;
  
 use Test::More tests => 5;
 use Test::Warn;
  
-use LG::QuickMemo_Plus::Extract::Memo qw( lqm_to_str );
+use Data::QuickMemoPlus::Reader qw( lqm_to_str );
  
 my $lqm_file = 'not_a_file';
 warning_is    {lqm_to_str($lqm_file)} "$lqm_file is not a file", "warning for missing file.";

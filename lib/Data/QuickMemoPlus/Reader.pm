@@ -94,16 +94,16 @@ __END__
 
 =head1 NAME
 
-LG::QuickMemo_Plus::Extract::Memo - Extract text from QuickMemo+ export files.
+Data::QuickMemoPlus::Reader - Extract text from QuickMemo+ LQM export files.
 
 =head1 SYNOPSIS
 
-    use LG::QuickMemo_Plus::Extract::Memo qw(lqm_to_str);
+    use Data::QuickMemoPlus::Reader qw(lqm_to_str);
     my $memo_text = lqm_to_str('QuickMemo+_191208_220400.lqm');
 
 =head1 DESCRIPTION
 
-LG::QuickMemo_Plus::Extract::Memo is a module that will extract the 
+Data::QuickMemoPlus::Reader is a module that will extract the 
 text contents from archived QuickMemo+ memos.
 
 QuickMemo+ lqm files are in Zip format. This program unzips them, 

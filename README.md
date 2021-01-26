@@ -1,14 +1,14 @@
 # NAME
 
-LG::QuickMemo\_Plus::Extract::Memo - It's new $module
+Data::QuickMemoPlus::Reader - It's new $module
 
 # SYNOPSIS
 
-    use LG::QuickMemo_Plus::Extract::Memo;
+    use Data::QuickMemoPlus::Reader;
 
 # DESCRIPTION
 
-LG::QuickMemo\_Plus::Extract::Memo is ...
+Data::QuickMemoPlus::Reader is ...
 
 # LICENSE
 

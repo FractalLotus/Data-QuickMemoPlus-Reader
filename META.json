@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : 2
    },
-   "name" : "LG-QuickMemo_Plus-Extract-Memo",
+   "name" : "Data-QuickMemoPlus-Reader",
    "no_index" : {
       "directory" : [
          "t",

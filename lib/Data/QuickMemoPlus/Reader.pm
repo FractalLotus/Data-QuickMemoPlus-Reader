@@ -74,7 +74,7 @@ sub extract_text_from_json {
     ############# To do: eval this and trap errors.
     my $href_memo  = decode_json $json_string;
     if (not $href_memo){
-        carp "Error decoding text";
+        carp "Error decoding JSON file in lqm archive.";
         return '','';
     }
     my $text = "";
@@ -100,15 +100,22 @@ Data::QuickMemoPlus::Reader - Extract text from QuickMemo+ LQM export files.
 
     use Data::QuickMemoPlus::Reader qw(lqm_to_str);
     my $memo_text = lqm_to_str('QuickMemo+_191208_220400.lqm');
+    
+    ## Supress the header text like this:
+    $Data::QuickMemoPlus::Reader::suppress_header = 1;
 
 =head1 DESCRIPTION
 
-Data::QuickMemoPlus::Reader is a module that will extract the 
+C<Data::QuickMemoPlus::Reader> is a module that will extract the 
 text contents from archived QuickMemo+ memos.
 
-QuickMemo+ lqm files are in Zip format. This program unzips them, 
+QuickMemo+ F<lqm> files are in Zip format. This program unzips them, 
 parses the json file inside, then extracts the category and memo text 
 from the Json file.
+
+If the filename of the lqm file contains the original timestamp then that
+is placed in the header of the text along with the category name. The header
+can be disabled by setting the package variable C<$suppress_header> to 1.
 
 =head1 LICENSE
 

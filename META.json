@@ -56,6 +56,17 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/FractalLotus/Data-QuickMemoPlus-Reader/issues"
+      },
+      "homepage" : "https://github.com/FractalLotus/Data-QuickMemoPlus-Reader",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/FractalLotus/Data-QuickMemoPlus-Reader.git",
+         "web" : "https://github.com/FractalLotus/Data-QuickMemoPlus-Reader"
+      }
+   },
    "version" : "0.01",
    "x_serialization_backend" : "JSON::PP version 4.02",
    "x_static_install" : 1

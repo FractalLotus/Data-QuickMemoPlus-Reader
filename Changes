@@ -1,6 +1,8 @@
 Revision history for Perl extension Data-QuickMemoPlus-Reader
 
 {{$NEXT}}
+
+0.01 2021-01-31T03:18:27Z
 	- updated minimum Perl to 5.010
 0.01 2021-01-31T03:03:55Z
 	- original version

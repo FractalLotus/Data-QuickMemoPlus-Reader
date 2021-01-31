@@ -1,5 +1,5 @@
 package Data::QuickMemoPlus::Reader;
-#use 5.008001;
+use 5.010;
 use strict;
 use warnings;
 use Carp;

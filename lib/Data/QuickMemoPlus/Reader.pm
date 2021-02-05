@@ -10,11 +10,37 @@ our $VERSION = "0.01";
 
 use Exporter qw(import);
  
-our @EXPORT_OK = qw( lqm_to_str );
+our @EXPORT_OK = qw( lqm_to_str lqm_to_txt );
 our $suppress_header = 0;
 
+sub lqm_to_txt {
+    my ( $lqm ) = @_;
+    if (-d $lqm){
+        $lqm =~ s![/\\]+$!!;
+        print "****lqm = $lqm *****\n";
+        foreach(glob qq("$lqm/*.lqm")){
+            _lqm_file_to_txt($_);
+        }
+    } else {
+        _lqm_file_to_txt($lqm);
+    }
+}
+sub _lqm_file_to_txt {
+    my ( $lqm_file ) = @_;
+    my $text = lqm_to_str($lqm_file);
+    #### test this return using an empty note.
+    #### for a note with only whitespace??  why not?
+    return if not $text;
+    my $outfile = $lqm_file;
+    $outfile =~ s/lqm$/txt/i;
+    open my $fh, ">", $outfile or do {
+        carp "couldn't open $outfile\n";
+        return;
+    };
+    print $fh $text;
+}
+
 sub lqm_to_str {
-    ## pass an lqm file exported from QuickMemo+
     my ( $lqm_file ) = @_;
     if (not -f $lqm_file){
         carp "$lqm_file is not a file";

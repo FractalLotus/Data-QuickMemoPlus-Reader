@@ -24,15 +24,15 @@ is  ( lqm_to_str($lqm_file), ExampleMemo::memo_with_header(), 'memo with full he
 $lqm_file = 't/data/good_file.lqm';
 is  ( lqm_to_str($lqm_file), ExampleMemo::memo_with_header_no_timestamp(), 'memo with header - missing timestamp' );
 
-$Data::QuickMemoPlus::Reader::suppress_header = 1;
-is  ( lqm_to_str($lqm_file), ExampleMemo::memo_no_header(), 'memo with no header' );
-
+{
+    local $Data::QuickMemoPlus::Reader::IncludeHeader;
+    is  ( lqm_to_str($lqm_file), ExampleMemo::memo_no_header(), 'memo with no header' );
+}
 is  ( Data::QuickMemoPlus::Reader::extract_json_from_lqm($lqm_file), ExampleMemo::jlqm(), 'jlqm json contents' );
 
-$Data::QuickMemoPlus::Reader::suppress_header = 0;
 ## make test directory.
-my $lqm_directory = 't\data';
-my $test_directory = 't\data\t 1';
+my $lqm_directory = 't/data';
+my $test_directory = 't/data/t 1';
 rmdir $test_directory if -d $test_directory;
 make_path $test_directory ;
 my $lqm_dir_glob = "$lqm_directory/*.lqm";
@@ -40,18 +40,17 @@ foreach ( glob qq("$lqm_dir_glob") ) {
     copy $_, $test_directory;
 }
 ## convert all *.lqm in directory
-lqm_to_txt($test_directory);
-## compare each text file produced to an example.
+my $file_count = lqm_to_txt($test_directory);
 ## count how many files. test for that.
 my @text_files = glob qq("$test_directory/*.txt");
-is  ( scalar @text_files, 3, 'convert multiple files.' );
+is  ( scalar @text_files, $file_count, 'convert multiple files.' );
 
-$test_directory = 't\data\t 2';
+$test_directory = 't/data/t 2';
 rmdir $test_directory if -d $test_directory;
 make_path $test_directory ;
 copy 't/data/QuickMemo+_191208_220400(5).lqm', $test_directory;
 ## convert single good file
-lqm_to_txt($test_directory . '/QuickMemo+_191208_220400(5).lqm');
+$file_count = lqm_to_txt($test_directory . '/QuickMemo+_191208_220400(5).lqm');
 ## count how many files. test for that.
 @text_files = glob qq("$test_directory/*.txt");
-is  ( scalar @text_files, 1, 'convert single good file.' );
+is  ( scalar @text_files, $file_count, 'convert single good file.' );

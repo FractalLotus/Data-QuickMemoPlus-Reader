@@ -25,7 +25,7 @@ DESCRIPTION
     Json file.
 
     If the filename of the lqm file contains the original timestamp then
-    that is placed in a text header int the text along with the category
+    that is placed in a text header in the text along with the category
     name. The header can be disabled by setting the package variable
     $IncludeHeader to false.
 

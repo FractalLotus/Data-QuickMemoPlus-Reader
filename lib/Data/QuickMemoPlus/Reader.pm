@@ -6,7 +6,7 @@ use Carp;
 use JSON;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 use Exporter qw(import);
  

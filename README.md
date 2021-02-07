@@ -24,7 +24,7 @@ parses the json file inside, then extracts the category and memo text
 from the Json file.
 
 If the filename of the lqm file contains the original timestamp then that
-is placed in a text header int the text along with the category name. The header
+is placed in a text header in the text along with the category name. The header
 can be disabled by setting the package variable `$IncludeHeader` to false.
 
 The following functions are available:

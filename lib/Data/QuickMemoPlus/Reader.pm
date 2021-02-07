@@ -22,7 +22,7 @@ sub lqm_to_txt {
             $files_converted += _lqm_file_to_txt($_);
         }
     } else {
-        $files_converted += _lqm_file_to_txt($lqm);
+        $files_converted = _lqm_file_to_txt($lqm);
     }
     return $files_converted;
 }

@@ -2,6 +2,8 @@ Revision history for Perl extension Data-QuickMemoPlus-Reader
 
 {{$NEXT}}
 
+0.04 2021-02-07T18:57:32Z
+	- added to pod
 0.03 2021-02-07T17:53:30Z
 	- fixed meta.yml.
 0.02 2021-02-06T23:02:44Z

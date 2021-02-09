@@ -2,6 +2,8 @@ Revision history for Perl extension Data-QuickMemoPlus-Reader
 
 {{$NEXT}}
 
+0.06 2021-02-09T18:44:44Z
+	- set status to stable in META.json
 0.05 2021-02-09T18:16:04Z
 	- set rev in META.yml to 0.05
 0.04 2021-02-07T18:57:32Z

@@ -2,6 +2,8 @@ Revision history for Perl extension Data-QuickMemoPlus-Reader
 
 {{$NEXT}}
 
+0.08 2021-02-10T01:48:47Z
+	- second attempt at stable release.
 0.07 2021-02-10T01:42:34Z
 	- attempt to release as stable.
 0.06 2021-02-09T18:44:44Z

@@ -2,6 +2,8 @@ Revision history for Perl extension Data-QuickMemoPlus-Reader
 
 {{$NEXT}}
 
+0.10 2021-02-11T19:23:50Z
+	- added META.yml with fixed path.
 0.09 2021-02-11T19:00:43Z
 	- removed META.yml, it contained bad path.
 0.08 2021-02-10T01:48:47Z

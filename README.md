@@ -16,7 +16,7 @@ Data::QuickMemoPlus::Reader - Extract text from QuickMemo+ LQM export files.
 
 # DESCRIPTION
 
-`Data::QuickMemoPlus::Reader` is a module that will extract the 
+`Data::QuickMemoPlus::Reader` is a Perl module that will extract the 
 text contents from archived QuickMemo+ memos. QuickMemo+ is a memo 
 application that comes with LG smartphones.
 

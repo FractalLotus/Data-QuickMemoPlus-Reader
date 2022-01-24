@@ -39,6 +39,12 @@ Return value is the number of files successfully converted.
 
 Returns the text extracted from the lqm file.
 
+# INSTALLATION
+
+To install from CPAN:
+From the command line run cpan. Then type "install Data::QuickMemoPlus::Reader".
+For more information about installing Perl modules there are many [tutorials](https://perlmaven.com/how-to-install-a-perl-module-from-cpan) available.
+
 # LICENSE
 
 Copyright (C) Brent Shields.
